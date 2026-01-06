@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_transition_request(from_state_name: String, to_state_name: String):
 	if not to_state_name in available_state:
-		push_error("Unavailable to_state_name: %s (from %s)" % [to_state_name, from_state_name])
+		push_warning("Unavailable to_state_name: %s (from %s)" % [to_state_name, from_state_name])
 		return
 	if from_state_name == to_state_name:
 		return
