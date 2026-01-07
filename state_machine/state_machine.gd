@@ -1,34 +1,33 @@
 class_name StateMachine extends Node
 
 @export var init_state_name: String = "IdleState"
+@export var animation_tree_path: String = "AnimationTree"
+@export var fsm_playback_path: String = "parameters/StateMachine/playback"
+
 @onready var character: CharacterBody2D
+@onready var character_name: String
 @onready var animation_tree: AnimationTree
 @onready var fsm_playback: AnimationNodeStateMachinePlayback
 
 var current_state: State
 var prev_state: State
 var available_state: Dictionary[String, State]
-var blend_spaces: Array[String]
 
 
 func _ready() -> void:
-	# Assign basic vars
+	# Assign node vars
 	character = get_parent()
-	animation_tree = get_parent().get_node("AnimationTree")
-	fsm_playback = animation_tree.get("parameters/StateMachine/playback")
+	character_name = character.name
+	animation_tree = get_parent().get_node(animation_tree_path)
+	fsm_playback = animation_tree.get(fsm_playback_path)
 	
-	# Prepare blend spaces according to state
+	# Assign state vars & signals
 	for state in get_children():
 		if state is State:
-			blend_spaces.append("parameters/StateMachine/%s/blend_position" % state.name)
-	
-	# Assign vars & signals for state
-	for state in get_children():
-		if state is State:
+			state.character_name = character_name
 			state.character = character
 			state.animation_tree = animation_tree
 			state.fsm_playback = fsm_playback
-			state.blend_spaces = blend_spaces
 			state.transition_request.connect(_on_transition_request)
 			available_state[state.name] = state
 	

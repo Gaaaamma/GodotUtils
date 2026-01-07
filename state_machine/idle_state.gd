@@ -22,6 +22,6 @@ func physics_process(_delta: float):
 func state_transition():
 	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	if direction.length() > 0:
-		update_blend_position(direction)
+		CharacterManager.update_blend_positions(character_name, direction, animation_tree)
 		transition_request.emit(self.name, "WalkState")
 		return

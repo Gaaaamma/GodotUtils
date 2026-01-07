@@ -91,8 +91,6 @@ class_name State extends Node
   - `physics_process()`
 - 發送狀態切換請求：
   - `transition_request(from, to)`
-- 更新動畫朝向：
-  - `update_blend_position(direction)`
 
 > State **不知道誰會接收 transition_request**  
 > 只負責「提出請求」
@@ -110,9 +108,9 @@ class_name StateMachine extends Node
 - 收集所有子 State
 - 注入共用資源：
   - `character`
+  - `character_name`
   - `animation_tree`
   - `fsm_playback`
-  - `blend_spaces`
 - 管理狀態切換：
   - 呼叫 `exit() / enter()`
 - 保證：
@@ -122,25 +120,15 @@ class_name StateMachine extends Node
 
 ## blend_position 更新機制
 
-StateMachine 在 `_ready()` 時會自動收集：
-
-```
-parameters/StateMachine/<StateName>/blend_position
-```
-
-並傳入每個 State：
-
-```gdscript
-state.blend_spaces = blend_spaces
-```
+現在 blend_position 交由 autoloads/character_manager.gd 統一管理，使用者需手動於該檔案變數 character_blend_positions 定義 blend_position 路徑。並以欲更新之 Character Node Name 作為鍵。
 
 State 內只需要呼叫：
 
 ```gdscript
-update_blend_position(direction)
+CharacterManager.update_blend_positions(...)
 ```
 
-即可同步更新 **所有狀態的 BlendSpace 朝向**，確保：
+即可同步更新 **所有被定義狀態的 BlendPosition 朝向**，確保：
 
 - Idle → Walk 不會轉向跳動
 - Walk → Idle 保留最後朝向
@@ -161,7 +149,8 @@ update_blend_position(direction)
 2. 該 State 內使用 `BlendSpace2D`
 3. 將動畫放入 BlendSpace2D
 4. 設定好上下左右對應位置
-5. **State 名稱要與之後的 State Node 名稱一致**
+5. 記得更新註冊 CharacterManager Blend Positions
+6. **State 名稱要與之後的 State Node 名稱一致**
 
 ---
 

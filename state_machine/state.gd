@@ -4,9 +4,10 @@ class_name State extends Node
 signal transition_request(from_state_name: String, to_state_name: String)
 
 var character: CharacterBody2D
+var character_name: String
 var animation_tree: AnimationTree
 var fsm_playback: AnimationNodeStateMachinePlayback
-var blend_spaces: Array[String]
+
 
 func _ready() -> void:
 	set_process(false)
@@ -31,8 +32,3 @@ func physics_process(_delta: float):
 
 func state_transition():
 	pass
-
-
-func update_blend_position(direction: Vector2):
-	for blend_space in blend_spaces:
-		animation_tree.set(blend_space, direction)
