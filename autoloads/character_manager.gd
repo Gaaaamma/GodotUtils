@@ -10,6 +10,7 @@ var character_blend_positions: Dictionary[String, Array] = {
 	],
 }
 
+
 ## Create character at `spawn_position` under current scene.
 ## It will also return the created Node for further usage.
 func spawn_character(character_pkscn: PackedScene, spawn_position: Vector2) -> Node:
