@@ -38,9 +38,9 @@ func change_scene(scene: String, location: String):
 	
 	# Wait for scene loaded, then unlock and fade in
 	await get_tree().scene_changed
+	await _fade_in_scene(0.75)
 	is_scene_changing = false
 	get_tree().paused = false
-	await _fade_in_scene(0.75)
 
 
 ## Configure camera limits based on TileMapLayer and enable it.
