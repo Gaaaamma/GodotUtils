@@ -4,9 +4,9 @@ extends Node
 ## key: character instance name, value: character name.
 ## Used to normalize multiple instances sharing the same animation setup.
 var instance_name_to_character: Dictionary[String, String] = {
-	"FrogA": "Frog",
-	"FrogB": "Frog",
-	"FrogC": "Frog",
+	# "FrogA": "Frog",
+	# "FrogB": "Frog",
+	# "FrogC": "Frog",
 }
 
 
@@ -14,14 +14,14 @@ var instance_name_to_character: Dictionary[String, String] = {
 ## key: character name, value: Array[String] blend position names.
 ## Make sure blend_position path is correct since no error is raised.
 var character_blend_positions: Dictionary[String, Array] = {
-	"Player": [
-		"parameters/StateMachine/IdleState/blend_position",
-		"parameters/StateMachine/WalkState/blend_position",
-	],
-	"Frog": [
-		"parameters/StateMachine/FrogIdleState/blend_position",
-		"parameters/StateMachine/FrogWalkState/blend_position",
-	],
+	# "Player": [
+	# 	"parameters/StateMachine/IdleState/blend_position",
+	# 	"parameters/StateMachine/WalkState/blend_position",
+	# ],
+	# "Frog": [
+	# 	"parameters/StateMachine/FrogIdleState/blend_position",
+	# 	"parameters/StateMachine/FrogWalkState/blend_position",
+	# ],
 }
 
 
