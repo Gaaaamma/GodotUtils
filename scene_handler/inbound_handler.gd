@@ -16,6 +16,16 @@ func collect_inbound_information():
 			inbound_direction[child.name] = child.direction.normalized()
 
 
+## Use prefix to get inbound location names.
+## Then you can use these location names to get spawn_positions & spawn_directions
+func get_inbound_locations_by_prefix(prefix: String) -> Array[String]:
+	var locations: Array[String] = []
+	for key in inbound_global_position.keys():
+		if key.begins_with(prefix):
+			locations.append(key)
+	return locations
+
+
 ## Use Inbound node name to search spawn position (global_position)
 func get_spawn_position(location: String) -> Vector2:
 	return inbound_global_position.get(location)
